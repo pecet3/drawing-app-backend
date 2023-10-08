@@ -47,28 +47,3 @@ io.on("connection", (socket) => {
 server.listen(3001, () => {
     console.log("💚 Listening on port 3001 💚")
 })
-app.get('/', (req, res) => {
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>Hello Page</title>
-        </head>
-        <body>
-          <h1>Hello</h1>
-        </body>
-      </html>
-    `;
-
-    res.send(htmlContent);
-});
-
-app.listen(3000, () => {
-    console.log(`Server is running on port ${port}`);
-});
-
-
-
-
-
-
