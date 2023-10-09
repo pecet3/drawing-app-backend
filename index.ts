@@ -1,49 +1,59 @@
 const express = require('express');
 const http = require('http');
+const path = require('path');
+
+import { Server } from 'socket.io';
+
 const app = express();
-
-const server = http.createServer(app)
-
-import { Server } from "socket.io"
-
+const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
         origin: "*"
     },
+});
 
-})
 type DrawLine = {
-    color: string
-    size: number
-    currentPoint: Point
-    prevPoint: Point | null
-}
+    color: string;
+    size: number;
+    currentPoint: Point;
+    prevPoint: Point | null;
+};
+
 type Point = {
     x: number;
     y: number;
-}
-let connections = 0
+};
+
+let connections = 0;
+
 io.on("connection", (socket) => {
-    console.log(`💚 Connection numer: ${connections}`)
-    connections++
+    console.log(`💚 Connection number: ${connections}`);
+    connections++;
+
     socket.on("client-ready", () => {
-        socket.broadcast.emit("get-canvas-state")
-    })
+        socket.broadcast.emit("get-canvas-state");
+    });
 
     let canvasState: string;
 
     socket.on("canvas-state", (state) => {
-        console.log("💛 canvas state server")
-        canvasState = state
-        console.log(canvasState.slice(0, 24))
-        socket.broadcast.emit("canvas-state-from-server", canvasState)
-    })
+        console.log("💛 canvas state server");
+        canvasState = state;
+        console.log(canvasState.slice(0, 24));
+        socket.broadcast.emit("canvas-state-from-server", canvasState);
+    });
+
+    app.get('/', (req, res) => {
+        res.sendFile(path.join(__dirname, 'index.html'));
+    });
+
     socket.on("draw-line", ({ prevPoint, currentPoint, color, size }: DrawLine) => {
-        socket.broadcast.emit("draw-line", { prevPoint, currentPoint, color, size })
-    })
-    socket.on("clear", () => io.emit("clear"))
-})
+        socket.broadcast.emit("draw-line", { prevPoint, currentPoint, color, size });
+    });
+
+    socket.on("clear", () => io.emit("clear"));
+});
 
 server.listen(3001, () => {
-    console.log("💚 Listening on port 3001 💚")
-})
+    console.log("💚 Listening on port 3001 💚");
+});

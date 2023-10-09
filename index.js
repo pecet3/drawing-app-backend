@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require('express');
 var http = require('http');
+var path = require('path');
+var socket_io_1 = require("socket.io");
 var app = express();
 var server = http.createServer(app);
-var socket_io_1 = require("socket.io");
 var io = new socket_io_1.Server(server, {
     cors: {
         origin: "*"
@@ -12,7 +13,7 @@ var io = new socket_io_1.Server(server, {
 });
 var connections = 0;
 io.on("connection", function (socket) {
-    console.log("\uD83D\uDC9A Connection numer: ".concat(connections));
+    console.log("\uD83D\uDC9A Connection number: ".concat(connections));
     connections++;
     socket.on("client-ready", function () {
         socket.broadcast.emit("get-canvas-state");
@@ -23,6 +24,9 @@ io.on("connection", function (socket) {
         canvasState = state;
         console.log(canvasState.slice(0, 24));
         socket.broadcast.emit("canvas-state-from-server", canvasState);
+    });
+    app.get('/', function (req, res) {
+        res.sendFile(path.join(__dirname, 'index.html'));
     });
     socket.on("draw-line", function (_a) {
         var prevPoint = _a.prevPoint, currentPoint = _a.currentPoint, color = _a.color, size = _a.size;
