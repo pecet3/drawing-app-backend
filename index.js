@@ -25,15 +25,23 @@ io.on("connection", function (socket) {
         console.log(canvasState.slice(0, 24));
         socket.broadcast.emit("canvas-state-from-server", canvasState);
     });
-    app.get('/', function (req, res) {
-        res.sendFile(path.join(__dirname, 'index.html'));
-    });
+
+
     socket.on("draw-line", function (_a) {
         var prevPoint = _a.prevPoint, currentPoint = _a.currentPoint, color = _a.color, size = _a.size;
         socket.broadcast.emit("draw-line", { prevPoint: prevPoint, currentPoint: currentPoint, color: color, size: size });
     });
     socket.on("clear", function () { return io.emit("clear"); });
 });
-server.listen(3001, function () {
-    console.log("💚 Listening on port 3001 💚");
+
+
+
+const port = 3003
+server.listen(port, function () {
+    console.log(`💚 Listening on port ${port} 💚`);
+
+    app.get('/', function (req, res) {
+        console.log("User visited")
+        res.json({ message: "hello world" });
+    });
 });
