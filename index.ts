@@ -5,6 +5,10 @@ const cors = require('cors')
 import { Server } from 'socket.io';
 
 const app = express();
+
+app.use(cors({
+    origin: "*"
+}))
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
