@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const path = require('path');
-
+const cors = require('cors')
 import { Server } from 'socket.io';
 
 const app = express();
@@ -56,4 +56,8 @@ io.on("connection", (socket) => {
 
 server.listen(3001, () => {
     console.log("💚 Listening on port 3001 💚");
+    app.get('/', function (req, res) {
+        console.log("User visited")
+        res.json({ message: "hello world" });
+    });
 });
