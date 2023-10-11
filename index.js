@@ -36,7 +36,7 @@ io.on("connection", function (socket) {
 
 
 
-const port = 3003
+const port = 80
 server.listen(port, function () {
     console.log(`💚 Listening on port ${port} 💚`);
 
@@ -44,4 +44,4 @@ server.listen(port, function () {
         console.log("User visited")
         res.json({ message: "hello world" });
     });
-});
+}); 
