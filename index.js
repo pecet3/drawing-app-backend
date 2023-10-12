@@ -7,7 +7,9 @@ var cors = require('cors');
 var socket_io_1 = require("socket.io");
 var app = express();
 app.use(cors({
-    origin: "*"
+    cors: {
+        origin: "*"
+    },
 }));
 var server = http.createServer(app);
 var io = new socket_io_1.Server(server, {
@@ -38,10 +40,9 @@ io.on("connection", function (socket) {
     });
     socket.on("clear", function () { return io.emit("clear"); });
 });
-
-const port = 3000
+var port = 3000;
 server.listen(port, function () {
-    console.log(`💚 Listening on port ${port} 💚`);
+    console.log("\uD83D\uDC9A Listening on port ".concat(port, " \uD83D\uDC9A / cors"));
     app.get('/', function (req, res) {
         console.log("User visited");
         res.json({ message: "hello world" });
