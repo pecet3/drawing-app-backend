@@ -7,8 +7,11 @@ import { Server } from 'socket.io';
 const app = express();
 
 app.use(cors({
-    origin: "*"
+    cors: {
+        origin: "*"
+    },
 }))
+
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
@@ -57,9 +60,9 @@ io.on("connection", (socket) => {
 
     socket.on("clear", () => io.emit("clear"));
 });
-
-server.listen(3001, () => {
-    console.log("💚 Listening on port 3001 💚");
+const port = 3000
+server.listen(port, () => {
+    console.log(`💚 Listening on port ${port} 💚 / cors`);
     app.get('/', function (req, res) {
         console.log("User visited")
         res.json({ message: "hello world" });
