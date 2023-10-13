@@ -44,7 +44,7 @@ var port = 8080;
 server.listen(port, function () {
     console.log("\uD83D\uDC9A Listening on port ".concat(port, " \uD83D\uDC9A / cors"));
     app.get('/', function (req, res) {
-        console.log("User visited");
+        console.log("> User visited");
         res.json({ message: "hello world" });
     });
 });
