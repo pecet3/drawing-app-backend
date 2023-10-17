@@ -4,6 +4,7 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var cors = require('cors');
+require('dotenv').config();
 var socket_io_1 = require("socket.io");
 var app = express();
 app.use(cors({
@@ -40,11 +41,11 @@ io.on("connection", function (socket) {
     });
     socket.on("clear", function () { return io.emit("clear"); });
 });
-var port = 80;
+var port = process.env.PORT || 8080;
 server.listen(port, function () {
     console.log("\uD83D\uDC9A Listening on port ".concat(port, " \uD83D\uDC9A / cors"));
     app.get('/', function (req, res) {
-        console.log("> User visited");
+        console.log("User visited");
         res.json({ message: "hello world" });
     });
 });

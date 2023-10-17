@@ -2,6 +2,8 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const cors = require('cors')
+require('dotenv').config()
+
 import { Server } from 'socket.io';
 
 const app = express();
@@ -60,7 +62,7 @@ io.on("connection", (socket) => {
 
     socket.on("clear", () => io.emit("clear"));
 });
-const port = 8080
+const port = process.env.PORT || 8080;
 server.listen(port, () => {
     console.log(`💚 Listening on port ${port} 💚 / cors`);
     app.get('/', function (req, res) {
