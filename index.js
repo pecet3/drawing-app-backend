@@ -40,7 +40,7 @@ io.on("connection", function (socket) {
     });
     socket.on("clear", function () { return io.emit("clear"); });
 });
-var port = 8080;
+var port = 80;
 server.listen(port, function () {
     console.log("\uD83D\uDC9A Listening on port ".concat(port, " \uD83D\uDC9A / cors"));
     app.get('/', function (req, res) {
