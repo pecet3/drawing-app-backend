@@ -67,6 +67,6 @@ server.listen(port, () => {
     console.log(`💚 Listening on port ${port} 💚 / cors`);
     app.get('/', function (req, res) {
         console.log("User visited")
-        res.json({ message: "hello world" });
+        res.json({ message: "hello to socket.io server for paint online" });
     });
 });

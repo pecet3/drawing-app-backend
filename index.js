@@ -46,6 +46,6 @@ server.listen(port, function () {
     console.log("\uD83D\uDC9A Listening on port ".concat(port, " \uD83D\uDC9A / cors"));
     app.get('/', function (req, res) {
         console.log("User visited");
-        res.json({ message: "hello world" });
+        res.json({ message: "hello to socket.io server for paint online" });
     });
 });
