@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
 
     socket.on("clear", () => io.emit("clear"));
 });
-const port = 808
+const port = 8080
 server.listen(port, () => {
     console.log(`💚 Listening on port ${port} 💚 / cors`);
     app.get('/', function (req, res) {
